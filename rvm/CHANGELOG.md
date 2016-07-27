@@ -1,50 +1,18 @@
-## 0.10.1 (Unreleased)
-
-### Breaking Changes
-
-* Re-factored the libraries and shell wrappers to more of an [LWRP][] ([@fnichol][])
-
-### Improvements
-
-* Updated default ruby to 1.9.3-p547 ([@martinisoft][])
-* Added a repository Code of Conduct (See CODE\_OF\_CONDUCT.md) ([@martinisoft][])
-
-### Documentation
-
-* Pull request [#246](https://github.com/fnichol/chef-rvm/pull/246): Updated README.md documenting use with librarian-chef ([@ncreuschling][])
-
-### Bug Fixes
-
-* Pull request [#285](https://github.com/fnichol/chef-rvm/pull/285): Use GPG for rvm verification. ([@lukeasrodgers][])
-* Pull request [#284](https://github.com/fnichol/chef-rvm/pull/284): Use full class name for rvm_environment resource usage inside Chef::Provider::Package:RVMRubygems class. ([@nomadium][])
-* Pull request [#300](https://github.com/fnichol/chef-rvm/pull/300): Ability to configure key server and home did for rvm gpg_key ([@lesniakania][])
-* Pull request [#298](https://github.com/martinisoft/chef-rvm/pull/298): Add GPG check for user installs ([@cmluciano][])
-* Pull request [#325](https://github.com/martinisoft/chef-rvm/pull/325): Fix ruby block to align with new style ([@cmluciano][])
-
-## 0.9.2 (March 31, 2014)
+## 0.9.1 (unreleased)
 
 ### Bug fixes
 
-* Pull request [#137](https://github.com/fnichol/chef-rvm/pull/137): Fix patch attribute support in rvm\_ruby. ([@mariussturm][])
-* Pull request [#140](https://github.com/fnichol/chef-rvm/pull/140): Update MRI package requirements for scientific-6 platforms. ([@aaronjensen][])
-* Pull request [#134](https://github.com/fnichol/chef-rvm/pull/134): Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
+* Fix vagrant\_ruby default location on modern vagrant baseboxes. ([@mveytsman][])
 * Pull request [#129](https://github.com/fnichol/chef-rvm/pull/129): Fix broken example in README. ([@zacharydanger][])
-* Pull request [#188](https://github.com/fnichol/chef-rvm/pull/188): Added missing dependencies. ([@fmfdias][])
-* Pull request [#151](https://github.com/fnichol/chef-rvm/pull/151): Add Berkshelf installation instructions. ([@justincampbell][])
-* Pull request [#128](https://github.com/fnichol/chef-rvm/pull/128): Allow for universal rvmrc settings to be used in the user\_install. ([@firebelly][])
-* Pull request [#204](https://github.com/fnichol/chef-rvm/pull/204): Minor spelling mistake ([@dosire][])
-* Pull request [#183](https://github.com/fnichol/chef-rvm/pull/183): Only log install when it actually happens ([@zsol][])
 
 ### New features
 
-* Pull request [#100](https://github.com/fnichol/chef-rvm/pull/100): Add rubygems\_version attribute to rvm\_ruby resource. ([@cgriego][])
-* Pull request [#125](https://github.com/fnichol/chef-rvm/pull/125): Omnibus support (via chef\_gem). ([@gondoi][], [@cgriego][], [@jblatt-verticloud][], [@jschneiderhan][])
 * Set name attribute in metadata.rb, which may help certain LWRP auto-naming issues when directory name does not match 'rvm' (FC045). ([@fnichol][])
 
 ### Improvements
 
 * Refactor foodcritic setup. ([@fnichol][])
-* Now suggests the [homebrew](http://community.opscode.com/cookbooks/homebrew) cookbook ([@martinisoft][])
+
 
 ## 0.9.0 (May 15, 2012)
 
@@ -213,22 +181,15 @@
 The changelog began with version 0.6.0 so any changes prior to that can be
 seen by checking the tagged releases and reading git commit messages.
 
-[LWRP]: https://docs.getchef.com/lwrp.html
-[@aaronjensen]: https://github.com/aaronjensen
 [@adrianpike]: https://github.com/adrianpike
 [@bradphelan]: https://github.com/bradphelan
 [@bryanstearns]: https://github.com/bryanstearns
-[@cgriego]: https://github.com/cgriego
 [@dokipen]: https://github.com/dokipen
 [@exempla]: https://github.com/exempla
 [@fnichol]: https://github.com/fnichol
-[@gondoi]: https://github.com/gondoi
-[@jblatt-verticloud]: https://github.com/jblatt-verticloud
 [@jheth]: https://github.com/jheth
-[@jschneiderhan]: https://github.com/jschneiderhan
 [@juzzin]: https://github.com/juzzin
 [@kristopher]: https://github.com/kristopher
-[@mariussturm]: https://github.com/mariussturm
 [@mpapis]: https://github.com/mpapis
 [@mveytsman]: https://github.com/mveytsman
 [@phlipper]: https://github.com/phlipper
@@ -240,14 +201,3 @@ seen by checking the tagged releases and reading git commit messages.
 [@TrevorBramble]: https://github.com/TrevorBramble
 [@xdissent]: https://github.com/xdissent
 [@zacharydanger]: https://github.com/zacharydanger
-[@fmfdias]: https://github.com/fmfdias
-[@justincampbell]: https://github.com/justincampbell
-[@firebelly]: https://github.com/firebelly
-[@martinisoft]: https://github.com/martinisoft
-[@dosire]: https://github.com/dosire
-[@zsol]: https://github.com/zsol
-[@ncreuschling]: https://github.com/ncreuschling
-[@lukeasrodgers]: https://github.com/lukeasrodgers
-[@nomadium]: https://github.com/nomadium
-[@lesniakania]: https://github.com/lesniakania
-[@cmluciano]: https://github.com/cmluciano

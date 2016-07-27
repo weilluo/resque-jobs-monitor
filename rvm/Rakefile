@@ -1,18 +1,18 @@
 #!/usr/bin/env rake
 
 require 'foodcritic'
-require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:unit) do |t|
-  t.pattern = "test/unit/**/*_spec.rb"
+# FC041 is excluded because we want to preserve the official RVM installation
+# process as much as possible, i.e. using curl to download the installer.
+FoodCritic::Rake::LintTask.new do |t|
+  t.options = { :fail_tags => ['any'], :tags => ['~FC041'] }
 end
 
 begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
+  require 'jamie/rake_tasks'
+  Jamie::RakeTasks.new
 rescue LoadError
-  puts ">>>>> Kitchen gem not loaded, omitting tasks" unless ENV['CI']
+  puts ">>>>> Jamie gem not loaded, omitting tasks" unless ENV['CI']
 end
 
-task :default => [:foodcritic, :unit]
-FoodCritic::Rake::LintTask.new
+task :default => [:foodcritic]
