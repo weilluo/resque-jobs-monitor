@@ -1,9 +1,5 @@
 user 'ubuntu'
 
-node.set['rvm']['installer_url'] = 'https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer'
-node.set['rvm']['branch'] = 'none'
-node.set['rvm']['version'] = '1.27.0'
-
 node.set['rvm']['user_installs'] = [
   {
     :user => 'ubuntu',
