@@ -1,0 +1,59 @@
+#!/bin/sh
+
+set -e
+
+# Feel free to change any of the following variables for your app:
+TIMEOUT=${TIMEOUT-60}
+APP_ROOT=<%= @app_path %>
+PID_DIR=$APP_ROOT/tmp/pids
+PID=$PID_DIR/thin.pid
+
+THIN_PID_FILE=$APP_ROOT/tmp/pids/thin.pid
+THIN_LOG_FILE=$APP_ROOT/log/thin.log
+CMD="cd $APP_ROOT; bundle exec thin start --port 8080 --pid $THIN_PID_FILE --log $THIN_LOG_FILE --servers 1 --threaded --daemonize --tag lift-job-monitor"
+
+AS_USER=<%= @deploy_user %>
+
+set -u
+
+sig () {
+  test -s "$PID" && kill -$1 `cat $PID`
+}
+
+run () {
+  if [ "$(id -un)" = "$AS_USER" ]; then
+    eval $1
+  else
+    su -c "$1" - $AS_USER
+  fi
+}
+
+anywait () {
+  while [ -f "$PID" ] > /dev/null; do
+    sleep 1
+  done
+}
+
+case "$1" in
+start)
+  sig 0 && echo >&2 "Already running" && exit 0
+  run "$CMD"
+  ;;
+stop)
+  sig QUIT && exit 0
+  echo >&2 "Not running"
+  ;;
+force-stop)
+  sig TERM && exit 0
+  echo >&2 "Not running"
+  ;;
+restart|reload)
+  sig QUIT && anywait && echo reloaded ok && run "$CMD" && exit 0
+  echo >&2 "Couldn't reload, starting '$CMD' instead"
+  run "$CMD"
+  ;;
+*)
+  echo >&2 "Usage: $0 <start|stop|restart|force-stop>"
+  exit 1
+  ;;
+esac
