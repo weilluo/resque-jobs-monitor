@@ -6,11 +6,14 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=<%= @app_path %>
 PID_DIR=$APP_ROOT/tmp/pids
-PID=$PID_DIR/thin.pid
 
+THIN_PORT=8080
 THIN_PID_FILE=$APP_ROOT/tmp/pids/thin.pid
 THIN_LOG_FILE=$APP_ROOT/log/thin.log
-CMD="cd $APP_ROOT; bundle exec thin start --port 8080 --pid $THIN_PID_FILE --log $THIN_LOG_FILE --servers 1 --threaded --daemonize --tag lift-job-monitor"
+
+PID=$PID_DIR/thin.$THIN_PORT.pid
+
+CMD="cd $APP_ROOT; LiFT_REDIS_URL=<%= @redis_url %> RACK_ENV=<%= @rack_env %> bundle exec thin start --port $THIN_PORT --pid $THIN_PID_FILE --log $THIN_LOG_FILE --servers 1 --threaded --daemonize --tag lift-job-monitor"
 
 AS_USER=<%= @deploy_user %>
 

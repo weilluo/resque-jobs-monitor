@@ -1,6 +1,7 @@
 app = search(:aws_opsworks_app).first
-app_path = "/srv/apps/#{app['shortname']}"
-ssh_key_file = "/srv/.ssh/#{app['shortname']}"
+home = "/home/#{node[:deploy_user]}"
+app_path = "/#{home}/apps/#{app['shortname']}"
+ssh_key_file = "/#{home}/.ssh/#{app['shortname']}"
 ssh_key_wrapper = "#{ssh_key_file}_wrapper"
 
 git app_path do
@@ -21,5 +22,5 @@ end
 execute 'restart app' do
   user node[:deploy_user]
   group node[:deploy_user]
-  command "/srv/bin/lift_jobs_monitor.sh restart"
+  command "/#{home}/bin/lift_jobs_monitor.sh restart"
 end

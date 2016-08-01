@@ -1,27 +1,21 @@
 app = search(:aws_opsworks_app).first
+home = "/home/#{node[:deploy_user]}"
 
-directory "/srv/apps" do
+directory "/#{home}/apps" do
   owner node[:deploy_user]
   group node[:deploy_user]
   mode '0755'
   action :create
 end
 
-directory "/srv/bin" do
+directory "/#{home}/bin" do
   owner node[:deploy_user]
   group node[:deploy_user]
   mode '0755'
   action :create
 end
 
-directory "/srv/.ssh" do
-  owner node[:deploy_user]
-  group node[:deploy_user]
-  mode '0755'
-  action :create
-end
-
-ssh_key_file = "/srv/.ssh/#{app['shortname']}"
+ssh_key_file = "/#{home}/.ssh/#{app['shortname']}"
 ssh_key_wrapper = "#{ssh_key_file}_wrapper"
 
 file ssh_key_file do
@@ -43,10 +37,15 @@ file ssh_key_wrapper do
   action [:delete, :create]
 end
 
-template "/srv/bin/lift_jobs_monitor.sh" do
+template "/#{home}/bin/lift_jobs_monitor.sh" do
   source "lift_jobs_monitor.sh.erb"
   owner node[:deploy_user]
   group node[:deploy_user]
   mode '0700'
-  variables({app_path: "/srv/apps/#{app['shortname']}", deploy_user: node[:deploy_user]})
+  variables({
+    app_path: "/#{home}/apps/#{app['shortname']}",
+    deploy_user: node[:deploy_user],
+    redis_url: app["environment"]["LiFT_REDIS_URL"],
+    rack_env: app["environment"]["RACK_ENV"]
+  })
 end
