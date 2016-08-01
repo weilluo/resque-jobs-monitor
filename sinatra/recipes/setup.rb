@@ -28,12 +28,14 @@ file ssh_key_file do
   content app['app_source']['ssh_key']
   mode '0400'
   owner node[:deploy_user]
+  group node[:deploy_user]
   action [:delete, :create]
 end
 
 file ssh_key_wrapper do
   mode '0770'
   owner node[:deploy_user]
+  group node[:deploy_user]
   content <<-EOS.gsub(/^ {4}/, '')
     #!/bin/sh
     exec ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i "#{ssh_key_file}" "$@"
